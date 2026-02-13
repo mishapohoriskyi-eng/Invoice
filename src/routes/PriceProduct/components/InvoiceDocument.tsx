@@ -7,7 +7,7 @@ import {
   View,
 } from "@react-pdf/renderer";
 import PdfInterRegular from "../assets/fonts/Inter-Regular.otf";
-import { InvoiceFormValues, InvoiceItem } from "../Confectionery";
+import { InvoiceFormValues, InvoiceItem } from "../PriceProduct";
 import { numberToUkrainianWords } from "../../../utils/numberToWords";
 
 Font.register({
@@ -395,7 +395,6 @@ const styles = StyleSheet.create({
     fontSize: "10px",
     padding: "5px 0 0 0",
     borderRight: "1px solid #000000",
-    height: "100%",
   },
   tableHeaderNumber: {
     width: "5%",
@@ -431,7 +430,6 @@ const styles = StyleSheet.create({
     fontSize: "10px",
     padding: "5px 0 0 0",
     borderRight: "1px solid #000000",
-    height: "100%",
   },
   tableBottom: {
     padding: "0 0 0 0",

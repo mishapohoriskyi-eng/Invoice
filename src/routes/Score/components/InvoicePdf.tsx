@@ -1,7 +1,7 @@
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { Box, Button } from "@mui/material";
 import InvoiceDocument from "./InvoiceDocument";
-import { InvoiceFormValues } from "../Confectionery";
+import { InvoiceFormValues } from "../Score";
 
 interface InvoicePdfProps extends InvoiceFormValues {
   formattedDate: string;
@@ -10,8 +10,7 @@ interface InvoicePdfProps extends InvoiceFormValues {
 const InvoicePdf: React.FC<InvoicePdfProps> = ({
   name,
   invoiceNumber,
-  discount,
-  throughWhom,
+  edrpou,
   items,
   formattedDate,
 }) => {
@@ -23,8 +22,7 @@ const InvoicePdf: React.FC<InvoicePdfProps> = ({
             <InvoiceDocument
               name={name}
               invoiceNumber={invoiceNumber}
-              discount={discount}
-              throughWhom={throughWhom}
+              edrpou={edrpou}
               items={items}
               formattedDate={formattedDate}
             />
@@ -44,8 +42,7 @@ const InvoicePdf: React.FC<InvoicePdfProps> = ({
           <InvoiceDocument
             name={name}
             invoiceNumber={invoiceNumber}
-            discount={discount}
-            throughWhom={throughWhom}
+            edrpou={edrpou}
             items={items}
             formattedDate={formattedDate}
           />

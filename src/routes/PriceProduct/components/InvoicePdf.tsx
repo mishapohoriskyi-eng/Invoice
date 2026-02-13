@@ -1,7 +1,7 @@
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { Box, Button } from "@mui/material";
 import InvoiceDocument from "./InvoiceDocument";
-import { InvoiceFormValues } from "../Confectionery";
+import { InvoiceFormValues } from "../PriceProduct";
 
 interface InvoicePdfProps extends InvoiceFormValues {
   formattedDate: string;

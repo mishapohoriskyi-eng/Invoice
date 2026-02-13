@@ -28,10 +28,28 @@ const MainNavigation = () => {
             <ListItem>
               <NavLink
                 onClick={closeMenu}
-                to={routes.INVOICE}
+                to={routes.POWER_ATTORNEY}
                 data-testid="home_on_sidebar"
               >
-                Invoice
+                Довіреність
+              </NavLink>
+            </ListItem>
+            <ListItem>
+              <NavLink
+                onClick={closeMenu}
+                to={routes.SCORE}
+                data-testid="home_on_sidebar"
+              >
+                Рахунок
+              </NavLink>
+            </ListItem>
+            <ListItem>
+              <NavLink
+                onClick={closeMenu}
+                to={routes.PRICE_PRODUCT}
+                data-testid="home_on_sidebar"
+              >
+                Ціна
               </NavLink>
             </ListItem>
           </Menu>

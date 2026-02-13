@@ -54,8 +54,7 @@ export interface InvoiceItem {
 export interface InvoiceFormValues {
   name: string;
   invoiceNumber: number;
-  discount: number;
-  throughWhom: string;
+  edrpou: number;
   invoiceDate?: dayjs.Dayjs | null;
   items: InvoiceItem[];
 }
@@ -63,21 +62,12 @@ export interface InvoiceFormValues {
 const initialValues: InvoiceFormValues = {
   name: "",
   invoiceNumber: 0,
-  discount: 0,
-  throughWhom: "",
+  edrpou: 0,
   invoiceDate: dayjs(),
   items: [
     {
       id: 1,
-      name: "Сітка для упакування овочів 2 кг червона",
-      unit: "шт.",
-      quantity: 1000,
-      price: 2.47,
-      sum: 2470.0,
-    },
-    {
-      id: 2,
-      name: "Сітка для упакування овочів 20 кг фіолетова",
+      name: "Сітка (40*50см), червона",
       unit: "шт.",
       quantity: 1000,
       price: 2.47,
@@ -86,7 +76,7 @@ const initialValues: InvoiceFormValues = {
   ],
 };
 
-const Invoice = () => {
+const Confectionery = () => {
   const [submittedData, setSubmittedData] = useState<InvoiceFormValues | null>(
     null,
   );
@@ -161,12 +151,12 @@ const Invoice = () => {
 
   return (
     <Box>
-      <Title>Створення Накладної</Title>
+      <Title>Рахунок</Title>
       <form onSubmit={handleSubmit}>
         <InvoiceBlock>
           <InvoiceItems>
             <InvoiceItemBLock>
-              <InvoiceItemTitle>Номер накладної</InvoiceItemTitle>
+              <InvoiceItemTitle>Номер рахунку</InvoiceItemTitle>
               <TextField
                 name="invoiceNumber"
                 type="number"
@@ -178,7 +168,7 @@ const Invoice = () => {
             </InvoiceItemBLock>
 
             <InvoiceItemBLock>
-              <InvoiceItemTitle>Прізвище та Ім'я</InvoiceItemTitle>
+              <InvoiceItemTitle>Прізвище та Ім'я ФОП</InvoiceItemTitle>
               <TextField
                 name="name"
                 value={values.name}
@@ -189,21 +179,11 @@ const Invoice = () => {
             </InvoiceItemBLock>
 
             <InvoiceItemBLock>
-              <InvoiceItemTitle>Через кого</InvoiceItemTitle>
+              <InvoiceItemTitle>ЄДРПОУ</InvoiceItemTitle>
               <TextField
-                name="throughWhom"
-                value={values.throughWhom}
-                onChange={handleChange}
-                variant="outlined"
-                size="small"
-              />
-            </InvoiceItemBLock>
-
-            <InvoiceItemBLock>
-              <InvoiceItemTitle>Знижка</InvoiceItemTitle>
-              <TextField
-                name="discount"
-                value={values.discount}
+                name="edrpou"
+                type="number"
+                value={values.edrpou || ""}
                 onChange={handleChange}
                 variant="outlined"
                 size="small"
@@ -213,7 +193,7 @@ const Invoice = () => {
           <InvoiceCalendar>
             <Box sx={{ marginBottom: 2 }}>
               <label>
-                Дата створення накладної
+                Дата створення рахунку
                 <br />
                 <LocalizationProvider
                   dateAdapter={AdapterDayjs}
@@ -464,4 +444,4 @@ const InvoiceItemBLock = styled(Box)(({ theme }) => ({
   margin: "0 0 0 0",
 }));
 
-export default Invoice;
+export default Confectionery;
