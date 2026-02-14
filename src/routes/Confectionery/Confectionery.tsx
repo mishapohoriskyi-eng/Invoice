@@ -14,7 +14,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
-import { useState } from "react";
 import InvoicePdf from "./components/InvoicePdf";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -22,6 +21,9 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import updateLocale from "dayjs/plugin/updateLocale";
 import "dayjs/locale/uk";
 import dayjs from "dayjs";
+import { useInvoiceStore } from "../../store/invoiceStore";
+import { InvoiceFormValues, InvoiceItem } from "../../types/invoceType";
+import { useFormattedDate } from "../../store/formatDateStore";
 
 dayjs.extend(updateLocale);
 dayjs.updateLocale("uk", {
@@ -41,24 +43,6 @@ dayjs.updateLocale("uk", {
   ],
 });
 dayjs.locale("uk");
-
-export interface InvoiceItem {
-  id: number;
-  name: string;
-  unit: string;
-  quantity: number;
-  price: number;
-  sum: number;
-}
-
-export interface InvoiceFormValues {
-  name: string;
-  invoiceNumber: number;
-  discount: number;
-  throughWhom: string;
-  invoiceDate?: dayjs.Dayjs | null;
-  items: InvoiceItem[];
-}
 
 const initialValues: InvoiceFormValues = {
   name: "",
@@ -87,15 +71,21 @@ const initialValues: InvoiceFormValues = {
 };
 
 const Confectionery = () => {
-  const [submittedData, setSubmittedData] = useState<InvoiceFormValues | null>(
-    null,
-  );
+  const setInvoiceData = useInvoiceStore((state) => state.setInvoiceData);
+  const setFormattedDate = useFormattedDate((state) => state.setFormattedDate);
 
   const { handleSubmit, values, handleChange, setFieldValue } =
     useFormik<InvoiceFormValues>({
       initialValues,
       onSubmit: async (values) => {
-        setSubmittedData(values);
+        setInvoiceData({
+          name: values.name,
+          invoiceNumber: values.invoiceNumber,
+          discount: values.discount,
+          throughWhom: values.throughWhom,
+          items: values.items,
+        });
+        setFormattedDate(formatDateForDisplay(values.invoiceDate));
       },
       validateOnChange: false,
       validateOnBlur: true,
@@ -385,12 +375,7 @@ const Confectionery = () => {
         </Box>
       </form>
 
-      {submittedData && (
-        <InvoicePdf
-          {...submittedData}
-          formattedDate={formatDateForDisplay(submittedData.invoiceDate)}
-        />
-      )}
+      <InvoicePdf />
     </Box>
   );
 };

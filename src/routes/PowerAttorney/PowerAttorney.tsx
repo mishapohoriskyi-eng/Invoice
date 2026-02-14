@@ -42,7 +42,7 @@ const initialValues: InvoiceFormValues = {
   invoiceDate: dayjs(),
 };
 
-const Confectionery = () => {
+const PowerAttorney = () => {
   const [submittedData, setSubmittedData] = useState<InvoiceFormValues | null>(
     null,
   );
@@ -225,4 +225,4 @@ const InvoiceItemBLock = styled(Box)(({ theme }) => ({
   margin: "0 0 0 0",
 }));
 
-export default Confectionery;
+export default PowerAttorney;

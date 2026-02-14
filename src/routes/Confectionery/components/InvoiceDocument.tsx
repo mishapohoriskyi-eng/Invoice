@@ -7,26 +7,20 @@ import {
   View,
 } from "@react-pdf/renderer";
 import PdfInterRegular from "../assets/fonts/Inter-Regular.otf";
-import { InvoiceFormValues, InvoiceItem } from "../Confectionery";
 import { numberToUkrainianWords } from "../../../utils/numberToWords";
+import { useInvoiceStore } from "../../../store/invoiceStore";
+import { InvoiceItem } from "../../../types/invoceType";
+import { useFormattedDate } from "../../../store/formatDateStore";
 
 Font.register({
   family: "InterRegular",
   src: PdfInterRegular,
 });
 
-interface InvoiceDocumentProps extends InvoiceFormValues {
-  formattedDate: string;
-}
-
-const InvoiceDocument: React.FC<InvoiceDocumentProps> = ({
-  name,
-  invoiceNumber,
-  items,
-  formattedDate,
-  discount,
-  throughWhom,
-}) => {
+const InvoiceDocument = () => {
+  const { name, invoiceNumber, items, discount, throughWhom } =
+    useInvoiceStore();
+  const { formattedDate } = useFormattedDate();
   const totalSum = items?.reduce((acc, item) => acc + item.sum, 0) || 0;
   const totalWithDiscount =
     discount && discount > 0 ? totalSum * (1 - discount / 100) : totalSum;
